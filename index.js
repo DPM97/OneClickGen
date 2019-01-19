@@ -90,7 +90,6 @@ async function getVid(cookies) {
     let $ = cheerio.load(bodyHTML);
     let link = $('#video-title').attr('href');
     await page.goto('http://youtube.com' + link);
-    console.log('http://youtube.com' + link);
     setTimeout(() => {
         browser.close();
     }, 15000);
@@ -110,15 +109,22 @@ async function getSearch(cookies) {
     let common = ["the", "of", "and", "a", "to", "in", "is", "you", "that", "it", "he", "was", "for", "on", "are", "as", "with", "his", "they", "I", "at", "be", "this", "have", "from", "or", "one", "had", "by", "word", "but", "not", "what", "all", "were", "we", "when", "your", "can", "said", "there", "use", "an", "each", "which", "she", "do", "how", "their", "if", "will", "up", "other", "about", "out", "many", "then", "them", "these", "so", "some", "her", "would", "make", "like", "him", "into", "time", "has", "look", "two", "more", "write", "go", "see", "number", "no", "way", "could", "people", "my", "than", "first", "water", "been", "call", "who", "oil", "its", "now", "find", "long", "down", "day", "did", "get", "come", "made", "may", "part"];
 
     await page.goto('https://www.google.com/')
-    let data = common[getRandomInt(100)] + ' ' + common[getRandomInt(100)];
+    let data = '';
+    for (var i = 0; i < getRandomInt(5); i++) {
+        data = data + common[getRandomInt(100)] + ' ';
+    }
     await page.type('input.gsfi', data);
     await page.keyboard.press('Enter');
-    await page.waitForSelector('#resultStats');
-    console.log('Searched ' + data);
+    await delay(2000);
     browser.close();
 }
 
 function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+    let num = Math.floor(Math.random() * Math.floor(max));
+    if (num > 0) {
+        return num;
+    } else {
+        return getRandomInt(max);
+    }
 }
 
