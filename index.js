@@ -17,8 +17,12 @@ function createMain() {
 app.on('ready', createMain);
 
 ipcMain.on('start', function () {
-    console.log('starting')
-    return startTask();
+    if (accounts.length == 0) {
+        console.log('add an account');
+    } else {
+        console.log('starting')
+        return startTask();
+    }
 });
 
 ipcMain.on('stop', function () {
