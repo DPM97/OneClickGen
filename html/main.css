@@ -1,13 +1,13 @@
 .startBtn {
     position: absolute;
     top: 30%;
-    left: 26%;
+    left: 30%;
 }
 
 .stopBtn {
     position: absolute;
     top: 30%;
-    left: 55%;
+    left: 59%;
 
 }
 
@@ -33,7 +33,7 @@
 .del {
     position: absolute;
     top: 80%;
-    left: 50%;
+    left: 52%;
 }
 
 .fields {
@@ -43,7 +43,20 @@
 
 .text {
     position: relative;
-    top: 71%;
+    top: 65%;
     text-align: center;
 }
 
+
+#titlebar #drag-region {
+    background-color: #000;
+    width: 100%;
+    height: 6%;
+    -webkit-app-region: drag;
+}
+
+#titlebar {
+    font-size: 13px;
+    text-align: center;
+    color: #fff;
+}
