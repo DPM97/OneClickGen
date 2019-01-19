@@ -1,12 +1,49 @@
 .startBtn {
-    position: relative;
-    top: 45%;
-    left: 20%;
+    position: absolute;
+    top: 30%;
+    left: 26%;
 }
 
 .stopBtn {
-    position: relative;
-    top: 45%;
-    left: 50%;
+    position: absolute;
+    top: 30%;
+    left: 55%;
 
 }
+
+.email {
+    top: 40%;
+    position: relative;
+    margin-left: 14%;
+}
+
+.pass {
+    top: 40%;
+    margin-left: -5%;
+    margin-right: -10%;
+    position: absolute;
+}
+
+.add {
+    position: absolute;
+    top: 80%;
+    left: 23%;
+}
+
+.del {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+}
+
+.fields {
+    position: absolute;
+    top: 50%;
+}
+
+.text {
+    position: relative;
+    top: 71%;
+    text-align: center;
+}
+

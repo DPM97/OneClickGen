@@ -25,11 +25,6 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
     <style>
         #view-source {
@@ -44,8 +39,16 @@
     </style>
 </head>
 
-<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
 <script type="text/javascript" src="js/jquery-1.8.0.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
 <script type='text/javascript'>
     window.ipcRenderer = require('electron').ipcRenderer;
@@ -54,8 +57,26 @@
 
 <body>
 
-    <button id="startBtn" type="button" onclick="start()" class="btn btn-success startBtn">Start</button>
-    <button id="stopBtn" type="button" onclick="stop()" class="btn btn-danger stopBtn">Stop</button>
+    <div>
+        <button id="startBtn" type="button" onclick="start()" class="btn btn-success startBtn">Start</button>
+        <button id="stopBtn" type="button" onclick="stop()" class="btn btn-danger stopBtn">Stop</button>
+    </div>
+
+    <div class="form-group row fields">
+        <div class="col-6 email">
+            <label for="ex1">Email</label>
+            <input class="form-control" id="email" type="text" placeholder="example@gmail.com">
+        </div>
+        <div class="col-5 pass">
+            <label for="ex2">Password</label>
+            <input class="form-control" id="pass" type="password">
+        </div>
+    </div>
+    <p id="textbox" class="text"></p>
+    <button type="submit" id="add" onclick="text1()" class="btn btn-primary mb-2 add">Add Gmail</button>
+    <button type="button" id="clear" onclick="text2()" class="btn btn-warning del">Clear Gmail's</button>
+
+
 
 </body>
 
@@ -67,6 +88,35 @@
     document.getElementById("stopBtn").addEventListener("click", function (e) {
         ipcRenderer.send('stop');
     });
+
+    document.getElementById("add").addEventListener("click", function (e) {
+        ipcRenderer.send('add', document.getElementById("email").value, document.getElementById("pass").value);
+    });
+
+    document.getElementById("clear").addEventListener("click", function (e) {
+        ipcRenderer.send('clear');
+    });
+</script>
+
+<script>
+    function text1() {
+        let string = document.getElementById("email").value + ':' + document.getElementById("pass").value;
+        textbox.style.opacity = 1;
+        if (string == ':' || string.includes('@gmail.com') == 0 || document.getElementById("pass").value == '' || document.getElementById("email").value == '') {
+            document.getElementById("textbox").style.color = "red";
+            document.getElementById("textbox").innerHTML = "Account not formatted correctly...";
+            $('.textbox').animate({opacity: 0},3000);
+        } else {
+            document.getElementById("textbox").style.color = "green";
+            document.getElementById("textbox").innerHTML = "Account added...";
+            $('.textbox').animate({opacity: 0},3000);
+        }
+    };
+    function text2() {
+        textbox.style.opacity = 1;
+        document.getElementById("textbox").style.color = "red";
+        document.getElementById("textbox").innerHTML = "Accounts cleared...";
+    };
 </script>
 
 </html>
